@@ -5,4 +5,4 @@ import {AuthService} from '../../packages/services/auth-service';
 const userRepo = new UserRepository();
 const authService = new AuthService(auth, userRepo);
 
-export { authService}
+export { authService }

@@ -13,13 +13,13 @@ export const authRoute = new Elysia({
         body: signUpRequest,
     },
 )
-    .post('/sign-in', async ({ body }) => {
-        return authService.signIn(body);
+    .post('/sign-in', async ({ body, request: { headers } }) => {
+        return authService.signIn(body, headers);
     },
     {
         body: signInRequest,
     },
 )
-    .post('/sign-out', async () => {
-        return authService.signOut();
+    .post('/sign-out', async ({ request: { headers } }) => {
+        return authService.signOut(headers);
     });

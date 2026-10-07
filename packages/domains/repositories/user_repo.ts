@@ -29,8 +29,8 @@ export class UserRepository {
 			email: row.email,
 			emailVerified: row.emailVerified,
 			image: row.image,
-			createAt: row.createdAt,
-			UpdateAt: row.updatedAt,
+			createdAt: row.createdAt,
+			updatedAt: row.updatedAt,
 			/*
 			DeleteAt: row.deletedAt,
 			UpdateBy: row.updatedBy,

@@ -10,8 +10,8 @@ export type User = {
     emailVerified: boolean;
     image?: string | null;
     company?: string | null;
-    createAt: Date;
-    UpdateAt: Date;
+    createdAt: Date;
+    updatedAt: Date;
     DeleteAt?: Date | null;
     UpdateBy?: string | null;
     DeleteBy?: string | null;
