@@ -4,12 +4,22 @@
   "type": "module",
   "private": true,
   "devDependencies": {
-    "@types/bun": "latest"
+    "@types/bun": "latest",
+    "@types/pg": "^8.23.1",
+    "drizzle-kit": "^1.0.0-rc.4",
+    "tsx": "^4.23.15"
   },
   "peerDependencies": {
     "typescript": "^7"
   },
   "dependencies": {
-    "elysia": "^1.4.30"
+    "@elysiajs/cors": "^1.4.2",
+    "@elysiajs/openapi": "^1.4.16",
+    "better-auth": "^1.7.7",
+    "dotenv": "^18.0.5",
+    "drizzle-orm": "^1.0.0-rc.4",
+    "elysia": "^1.4.30",
+    "pg": "^8.23.1",
+    "pino": "^10.4.0"
   }
 }

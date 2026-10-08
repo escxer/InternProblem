@@ -1,0 +1,11 @@
+import { auth } from '../src/lib/auth';
+import { UserRepository } from '../../packages/domains/repositories/user_repo';
+import {AuthService} from '../../packages/services/auth-service';
+import {UserService} from '../../packages/services/user-service';
+
+const userRepo = new UserRepository();
+const authService = new AuthService(auth, userRepo);
+const userService = new UserService(auth, userRepo);
+
+export { authService }
+export { userService }
