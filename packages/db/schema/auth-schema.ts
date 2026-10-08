@@ -1,21 +1,27 @@
 import { defineRelations } from "drizzle-orm";
-import { pgTable, text, timestamp, boolean, index } from "drizzle-orm/pg-core";
+import { pgTable, text, timestamp, boolean, index, type AnyPgColumn } from "drizzle-orm/pg-core";
 
 export const user = pgTable("user", {
   id: text("id").primaryKey(),
   firstname: text("firstname").notNull(),
   lastname: text("lastname").notNull(),
   name: text("name").notNull(),
-  role: text("role").notNull(),
+  role: text("role").notNull().default("user"),
   email: text("email").notNull().unique(),
   emailVerified: boolean("email_verified").default(false).notNull(),
   image: text("image"),
   company: text("company").notNull(),
+	banned: boolean('banned').default(false),
+	banReason: text('ban_reason'),
+	banExpires: timestamp('ban_expires'),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at")
     .defaultNow()
     .$onUpdate(() => new Date())
     .notNull(),
+  deletedAt: timestamp("deleted_at"),
+  updatedBy: text('updated_by').references((): AnyPgColumn => user.id),
+  deletedBy: text('deleted_by').references((): AnyPgColumn => user.id),
 });
 
 export const session = pgTable(
@@ -30,6 +36,7 @@ export const session = pgTable(
       .notNull(),
     ipAddress: text("ip_address"),
     userAgent: text("user_agent"),
+    impersonatedBy: text("impersonated_by"),
     userId: text("user_id")
       .notNull()
       .references(() => user.id, { onDelete: "cascade" }),
@@ -104,3 +111,9 @@ export const Schema = {
   accounts: account,
   verifications: verification,
 };
+
+export const DbSchema = {
+  ...Schema,
+  ...AuthRelations,
+};
+export type DbSchema = typeof DbSchema;

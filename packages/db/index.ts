@@ -1,11 +1,17 @@
 import 'dotenv/config';
-import { } from 'drizzle-orm';
 import { drizzle } from 'drizzle-orm/node-postgres';
-import { Schema } from './schema/auth-schema';
+import type { NodePgTransaction } from 'drizzle-orm/node-postgres';
+import { config } from '../infra';
+import { AuthRelations, Schema } from './schema/auth-schema';
 
-const databaseurl = 'postgresql://postgres:postgres@localhost:5432/postgres';
-
-export const db = drizzle(databaseurl);
+export const db = drizzle({
+    connection: config.DATABASE_URL,
+    relations: AuthRelations,
+});
+export type DatabaseOptions = {tx?: NodePgTransaction<typeof AuthRelations>};
+export function getDatabaseContext(options?: DatabaseOptions) {
+    return options?.tx ?? db;
+}
 
 export { Schema };
 export * from './schema/auth-schema';

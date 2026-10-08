@@ -10,9 +10,19 @@ export type User = {
     emailVerified: boolean;
     image?: string | null;
     company?: string | null;
+    banned?: boolean | null;
+	banReason?: string | null;
+	banExpires?: Date | null;
     createdAt: Date;
     updatedAt: Date;
-    DeleteAt?: Date | null;
-    UpdateBy?: string | null;
-    DeleteBy?: string | null;
+    deletedAt?: Date | null;
+    updatedBy?: string | null;
+    deletedBy?: string | null;
 }
+
+export type UserSearch = {
+	name?: string;
+	email?: string;
+	firstname?: string;
+	lastname?: string;
+};

@@ -1,5 +1,4 @@
 import type { auth as Auth } from '../../app/src/lib/auth';
-import { user } from '../db';
 import type { SignInRequest, SignUpRequest } from '../domains/dto/user';
 import type { User } from '../domains/entities/user';
 import type { UserRepository } from '../domains/repositories/user_repo';
@@ -19,10 +18,25 @@ export class AuthService {
                 body: {
 					email: input.email,
 					password: input.password,
-					name: `${input.firstName ?? ''} ${input.lastName ?? ''}`.trim(),
+					name: `${input.firstName} ${input.lastName}`.trim(),
+                    firstname: input.firstName,
+                    lastname: input.lastName,
+                    company: input.company,
 				    },
 			    });
-            return user.user;
+            return {
+                id: user.user.id,
+                firstname: user.user.firstname,
+                lastname: user.user.lastname,
+                name: user.user.name,
+                role: 'user',
+                email: user.user.email,
+                emailVerified: user.user.emailVerified,
+                image: user.user.image,
+                company: user.user.company,
+                createdAt: user.user.createdAt,
+                updatedAt: user.user.updatedAt,
+            };
         }
         catch (error: unknown) {
             throw new Error(`Sign up failed: ${error}`);
